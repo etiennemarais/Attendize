@@ -590,17 +590,28 @@
                 </div>
 
                 <div class="tab-pane {{$tab == 'access_codes' ? 'active' : ''}}" id="access_codes">
-                    {!! Form::model($event, array('url' => route('postEditEventAccessCodes', ['event_id' => $event->id]), 'class' => 'ajax ')) !!}
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="btn-toolbar" role="toolbar">
+                                <div class="btn-group btn-group-responsive">
+                                    <button data-modal-id='CreateAccessCode'
+                                            data-href="{{route('showCreateEventAccessCode', [ 'event_id' => $event->id ])}}"
+                                            class='loadModal btn btn-success' type="button"><i class="ico-ticket"></i> @lang("EventAccessCode.create_access_code")
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row"><div class="col-md-12">&nbsp;</div></div>
                     <div class="row">
                         <div class="col-md-6">
-                            <h4>@lang("Event.access_codes_heading")</h4>
                             @if($event->access_codes->count())
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
                                         <tr>
-                                            <th>@lang("Event.access_codes_code")</th>
-                                            <th>@lang("Event.access_codes_created_at")</th>
+                                            <th>@lang("EventAccessCode.access_codes_code")</th>
+                                            <th>@lang("EventAccessCode.access_codes_created_at")</th>
                                         </tr>
                                         </thead>
 
@@ -616,13 +627,12 @@
                                 </div>
                             @else
                                 <div class="alert alert-info">
-                                    @lang("Event.no_access_codes_yet")
+                                    @lang("EventAccessCode.no_access_codes_yet")
                                 </div>
                             @endif
                         </div>
                     </div>
                 </div>
-
             </div>
             <!--/ tab content -->
         </div>

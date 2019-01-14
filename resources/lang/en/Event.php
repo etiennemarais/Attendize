@@ -43,8 +43,4 @@ return array (
   'venue_name_placeholder' => 'E.g: The Crab Shack',
   'vis_hide' => 'Hide event from the public.',
   'vis_public' => 'Make event visible to the public.',
-  'access_codes_heading' => 'Access Codes to unlock hidden tickets',
-  'access_codes_code' => 'Access Code',
-  'access_codes_created_at' => 'Created At',
-  'no_access_codes_yet' => 'No Access Codes yet!',
 );

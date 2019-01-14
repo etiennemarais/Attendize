@@ -559,12 +559,10 @@ Route::group(
                 'as'   => 'showEventCustomize',
                 'uses' => 'EventCustomizeController@showCustomize',
             ]);
-
             Route::get('{event_id}/customize/{tab?}', [
                 'as'   => 'showEventCustomizeTab',
                 'uses' => 'EventCustomizeController@showCustomize',
             ]);
-
             Route::post('{event_id}/customize/order_page', [
                 'as'   => 'postEditEventOrderPage',
                 'uses' => 'EventCustomizeController@postEditEventOrderPage',
@@ -581,12 +579,23 @@ Route::group(
                 'as'   => 'postEditEventSocial',
                 'uses' => 'EventCustomizeController@postEditEventSocial',
             ]);
-
             Route::post('{event_id}/customize/fees', [
                 'as'   => 'postEditEventFees',
                 'uses' => 'EventCustomizeController@postEditEventFees',
             ]);
 
+            /**
+             * Event access codes
+             */
+            Route::get('{event_id}/access_codes/create', [
+                'as'   => 'showCreateEventAccessCode',
+                'uses' => 'EventAccessCodesController@showCreate',
+            ]);
+
+            Route::post('{event_id}/access_codes/create', [
+                'as'   => 'postCreateEventAccessCode',
+                'uses' => 'EventAccessCodesController@postCreate',
+            ]);
 
             /*
              * -------
