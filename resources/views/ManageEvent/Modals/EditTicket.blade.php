@@ -107,11 +107,17 @@
                         <div class="col-md-12">
                             <h4>Select access codes</h4>
                             @if($ticket->event->access_codes->count())
+                                <?php
+                                $isSelected = false;
+                                $selectedAccessCodes = $ticket->event_access_codes()->get()->map(function($accessCode) {
+                                    return $accessCode->pivot->event_access_code_id;
+                                })->toArray();
+                                ?>
                                 @foreach($ticket->event->access_codes as $access_code)
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="custom-checkbox mb5">
-                                                {!! Form::checkbox('ticket_access_codes[]', $access_code->id, false, ['id' => 'ticket_access_code_' . $access_code->id, 'data-toggle' => 'toggle']) !!}
+                                                {!! Form::checkbox('ticket_access_codes[]', $access_code->id, in_array($access_code->id, $selectedAccessCodes), ['id' => 'ticket_access_code_' . $access_code->id, 'data-toggle' => 'toggle']) !!}
                                                 {!! Form::label('ticket_access_code_' . $access_code->id, $access_code->code) !!}
                                             </div>
                                         </div>
