@@ -201,6 +201,8 @@
                     class="{{$tab == 'fees' ? 'active' : ''}}"><a href="#fees" data-toggle="tab">@lang("basic.service_fees")</a></li>
                 <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'ticket_design'])}}"
                     class="{{$tab == 'ticket_design' ? 'active' : ''}}"><a href="#ticket_design" data-toggle="tab">@lang("basic.ticket_design")</a></li>
+                <li data-route="{{route('showEventCustomizeTab', ['event_id' => $event->id, 'tab' => 'access_codes'])}}"
+                    class="{{$tab == 'access_codes' ? 'active' : ''}}"><a href="#access_codes" data-toggle="tab">@lang("basic.access_codes")</a></li>
 
             </ul>
             <!--/ tab -->
@@ -585,6 +587,15 @@
 
                     {!! Form::close() !!}
 
+                </div>
+
+                <div class="tab-pane {{$tab == 'access_codes' ? 'active' : ''}}" id="access_codes">
+                    {!! Form::model($event, array('url' => route('postEditEventAccessCodes', ['event_id' => $event->id]), 'class' => 'ajax ')) !!}
+                    <h4>@lang("Ticket.access_codes")</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                        </div>
+                    </div>
                 </div>
 
             </div>
