@@ -18,6 +18,7 @@ class CreateEventAccessCodesTable extends Migration
             $table->unsignedInteger('event_id');
             $table->string('code')->default('');
             $table->timestamps();
+            $table->softDeletes();
 
             // Add events table foreign key
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
