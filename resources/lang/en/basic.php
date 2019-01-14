@@ -42,6 +42,7 @@ return array (
   'submit' => 'Submit',
   'success' => 'Success',
   'ticket_design' => 'Ticket Design',
+  'access_codes' => 'Access Codes',
   'tickets' => 'Tickets',
     'TOP' => 'TOP',
   'total' => 'total',
