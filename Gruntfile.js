@@ -66,7 +66,7 @@ module.exports = function (grunt) {
             },
             backend: {
                 files: {
-                    './public/assets/javascript/backend.js': './public/assets/javascript/javascript/backend.js',
+                    './public/assets/javascript/backend.js': './public/assets/javascript/backend.js',
                 }
             },
         },
