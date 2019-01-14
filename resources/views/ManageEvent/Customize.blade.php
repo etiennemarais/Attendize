@@ -591,9 +591,34 @@
 
                 <div class="tab-pane {{$tab == 'access_codes' ? 'active' : ''}}" id="access_codes">
                     {!! Form::model($event, array('url' => route('postEditEventAccessCodes', ['event_id' => $event->id]), 'class' => 'ajax ')) !!}
-                    <h4>@lang("Ticket.access_codes")</h4>
                     <div class="row">
                         <div class="col-md-6">
+                            <h4>@lang("Event.access_codes_heading")</h4>
+                            @if($event->access_codes->count())
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>@lang("Event.access_codes_code")</th>
+                                            <th>@lang("Event.access_codes_created_at")</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        @foreach($event->access_codes as $access_code)
+                                            <tr>
+                                                <td><strong>{{ $access_code->code }}</strong></td>
+                                                <td>{{ $access_code->created_at }}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @else
+                                <div class="alert alert-info">
+                                    @lang("Event.no_access_codes_yet")
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
