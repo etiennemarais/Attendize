@@ -100,9 +100,30 @@
                                 {!! Form::checkbox('is_hidden', null, null, ['id' => 'is_hidden']) !!}
                                 {!! Form::label('is_hidden', trans("ManageEvent.hide_this_ticket"), array('class'=>' control-label')) !!}
                             </div>
-
                         </div>
                     </div>
+                    @if ($ticket->is_hidden)
+                        <hr />
+                        <div class="col-md-12">
+                            <h4>Select access codes</h4>
+                            @if($ticket->event->access_codes->count())
+                                @foreach($ticket->event->access_codes as $access_code)
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="custom-checkbox mb5">
+                                                {!! Form::checkbox('ticket_access_codes[]', $access_code->id, false, ['id' => 'ticket_access_code_' . $access_code->id, 'data-toggle' => 'toggle']) !!}
+                                                {!! Form::label('ticket_access_code_' . $access_code->id, $access_code->code) !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="alert alert-info">
+                                    @lang("EventAccessCode.no_access_codes_yet")
+                                </div>
+                            @endif
+                        </div>
+                    @endif
                 </div>
                 <a href="javascript:void(0);" class="show-more-options">
                     @lang("ManageEvent.more_options")
