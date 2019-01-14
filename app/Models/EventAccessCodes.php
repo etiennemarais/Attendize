@@ -29,4 +29,17 @@ class EventAccessCodes extends MyBaseModel
     {
         return $this->belongsTo(\App\Models\Event::class, 'event_id', 'id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    function tickets()
+    {
+        return $this->belongsToMany(
+            Ticket::class,
+            'ticket_event_access_code',
+            'event_access_code_id',
+            'ticket_id'
+        )->withTimestamps();
+    }
 }
