@@ -235,12 +235,13 @@ class EventTicketsController extends MyBaseController
 
         $ticket->save();
 
-        // TODO attach the access codes to the ticket if it's hidden and the code ids have come from the front
+        // Attach the access codes to the ticket if it's hidden and the code ids have come from the front
         if ($ticket->is_hidden) {
             $ticketAccessCodes = $request->get('ticket_access_codes', []);
             if (empty($ticketAccessCodes) === false) {
-                // TODO Attach to manyToMany relationship
-
+                // Sync the access codes on the ticket
+                $ticket->event_access_codes()->detach();
+                $ticket->event_access_codes()->attach($ticketAccessCodes);
             }
         }
 
