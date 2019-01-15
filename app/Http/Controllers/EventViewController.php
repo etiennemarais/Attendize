@@ -32,9 +32,8 @@ class EventViewController extends Controller
         }
 
         $data = [
-            'event'       => $event,
-//            'tickets'     => $event->tickets()->where('is_hidden', 0)->orderBy('sort_order', 'asc')->get(),
-            'tickets'     => $event->tickets()->orderBy('sort_order', 'asc')->get(),
+            'event' => $event,
+            'tickets' => $event->tickets()->orderBy('sort_order', 'asc')->get(),
             'is_embedded' => 0,
         ];
         /*
