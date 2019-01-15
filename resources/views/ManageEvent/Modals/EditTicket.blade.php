@@ -103,7 +103,6 @@
                         </div>
                     </div>
                     @if ($ticket->is_hidden)
-                        <hr />
                         <div class="col-md-12">
                             <h4>Select access codes</h4>
                             @if($ticket->event->access_codes->count())
