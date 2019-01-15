@@ -145,6 +145,11 @@ Route::group(
             'uses' => 'EventViewController@postContactOrganiser',
         ]);
 
+        Route::post('/{event_id}/show_hidden', [
+            'as'   => 'postShowHiddenTickets',
+            'uses' => 'EventViewController@postShowHiddenTickets',
+        ]);
+
         /*
          * Used for previewing designs in the backend. Doesn't log page views etc.
          */
