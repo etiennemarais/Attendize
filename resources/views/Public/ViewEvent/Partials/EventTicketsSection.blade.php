@@ -91,19 +91,23 @@
                                     </tr>
                                 @endforeach
                                 @if ($tickets->where('is_hidden', true)->count() > 0)
-                                <tr id="apply_access_code">
+                                <tr class="has-access-codes" data-url="{{route('postShowHiddenTickets', ['event_id' => $event->id])}}">
                                     <td colspan="3"  style="text-align: left">
                                         @lang("Public_ViewEvent.has_unlock_codes")
-                                        {!!  Form::text('unlock_code', null, [
+                                        <div class="form-group" style="display:inline-block;margin-bottom:0;margin-left:15px;">
+                                            {!!  Form::text('unlock_code', null, [
                                             'class' => 'form-control',
-                                            'style' => 'display:inline-block;width:25%;margin-left:15px;text-transform:uppercase;',
+                                            'id' => 'unlock_code',
+                                            'style' => 'display:inline-block;width:65%;text-transform:uppercase;',
                                             'placeholder' => 'ex: UNLOCKCODE01',
                                         ]) !!}
-                                        {!! Form::button(trans("basic.apply"), [
-                                            'class' => "btn btn-success",
-                                            'style' => 'display:inline-block;margin-top:-2px;',
-                                            'data-dismiss' => 'modal',
-                                        ]) !!}
+                                            {!! Form::button(trans("basic.apply"), [
+                                                'class' => "btn btn-success",
+                                                'id' => 'apply_access_code',
+                                                'style' => 'display:inline-block;margin-top:-2px;',
+                                                'data-dismiss' => 'modal',
+                                            ]) !!}
+                                        </div>
                                     </td>
                                 </tr>
                                 @endif
