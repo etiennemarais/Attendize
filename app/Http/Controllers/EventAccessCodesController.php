@@ -29,7 +29,6 @@ class EventAccessCodesController extends MyBaseController
     public function postCreate(Request $request, $event_id)
     {
         $eventAccessCode = new EventAccessCodes();
-
         if (!$eventAccessCode->validate($request->all())) {
             return response()->json([
                 'status'   => 'error',
@@ -37,8 +36,20 @@ class EventAccessCodesController extends MyBaseController
             ]);
         }
 
+        $newAccessCode = strtoupper(strip_tags($request->get('code')));
+        if (EventAccessCodes::findFromCode($newAccessCode, $event_id)->count() > 0) {
+            return response()->json([
+                'status'   => 'error',
+                'messages' => [
+                    'code' => [
+                        trans('EventAccessCode.unique_error'),
+                    ],
+                ],
+            ]);
+        }
+
         $eventAccessCode->event_id = $event_id;
-        $eventAccessCode->code = strtoupper(strip_tags($request->get('code')));
+        $eventAccessCode->code = $newAccessCode;
         $eventAccessCode->save();
 
         session()->flash('message', 'Successfully Created Access Code');

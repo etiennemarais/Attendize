@@ -7,4 +7,5 @@ return [
     'create_access_code' => 'Create Access Code',
     'access_code_title' => 'Code',
     'access_code_title_placeholder' => 'ex: CONFERENCE2019',
+    'unique_error' => 'Code already used for this event',
 ];
