@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EventAccessCodes extends MyBaseModel
@@ -16,22 +18,22 @@ class EventAccessCodes extends MyBaseModel
     public function rules()
     {
         return [
-            'code' => 'required|string',
+            'code' => 'required|string|unique:event_access_codes,code',
         ];
     }
 
     /**
      * The Event associated with the event access code.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function event()
     {
-        return $this->belongsTo(\App\Models\Event::class, 'event_id', 'id');
+        return $this->belongsTo(Event::class, 'event_id', 'id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     function tickets()
     {
