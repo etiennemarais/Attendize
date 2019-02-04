@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Str;
 use URL;
@@ -15,36 +16,34 @@ class Event extends MyBaseModel
 
     /**
      * The validation rules.
-     *
      * @return array $rules
      */
     public function rules()
     {
         $format = config('attendize.default_datetime_format');
         return [
-                'title'               => 'required',
-                'description'         => 'required',
-                'location_venue_name' => 'required_without:venue_name_full',
-                'venue_name_full'     => 'required_without:location_venue_name',
-                'start_date'          => 'required|date_format:"'.$format.'"',
-                'end_date'            => 'required|date_format:"'.$format.'"',
-                'organiser_name'      => 'required_without:organiser_id',
-                'event_image'         => 'mimes:jpeg,jpg,png|max:3000',
-            ];
+            'title' => 'required',
+            'description' => 'required',
+            'location_venue_name' => 'required_without:venue_name_full',
+            'venue_name_full' => 'required_without:location_venue_name',
+            'start_date' => 'required|date_format:"' . $format . '"',
+            'end_date' => 'required|date_format:"' . $format . '"',
+            'organiser_name' => 'required_without:organiser_id',
+            'event_image' => 'mimes:jpeg,jpg,png|max:3000',
+        ];
     }
 
     /**
      * The validation error messages.
-     *
      * @var array $messages
      */
     protected $messages = [
-        'title.required'                       => 'You must at least give a title for your event.',
-        'organiser_name.required_without'      => 'Please create an organiser or select an existing organiser.',
-        'event_image.mimes'                    => 'Please ensure you are uploading an image (JPG, PNG, JPEG)',
-        'event_image.max'                      => 'Please ensure the image is not larger then 3MB',
+        'title.required' => 'You must at least give a title for your event.',
+        'organiser_name.required_without' => 'Please create an organiser or select an existing organiser.',
+        'event_image.mimes' => 'Please ensure you are uploading an image (JPG, PNG, JPEG)',
+        'event_image.max' => 'Please ensure the image is not larger then 3MB',
         'location_venue_name.required_without' => 'Please enter a venue for your event',
-        'venue_name_full.required_without'     => 'Please enter a venue for your event',
+        'venue_name_full.required_without' => 'Please enter a venue for your event',
     ];
 
     /**
@@ -54,7 +53,7 @@ class Event extends MyBaseModel
      */
     public function questions()
     {
-        return $this->belongsToMany(\App\Models\Question::class, 'event_question');
+        return $this->belongsToMany(Question::class, 'event_question');
     }
 
     /**
@@ -64,27 +63,27 @@ class Event extends MyBaseModel
      */
     public function questions_with_trashed()
     {
-        return $this->belongsToMany(\App\Models\Question::class, 'event_question')->withTrashed();
+        return $this->belongsToMany(Question::class, 'event_question')->withTrashed();
     }
 
     /**
      * The attendees associated with the event.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function attendees()
     {
-        return $this->hasMany(\App\Models\Attendee::class);
+        return $this->hasMany(Attendee::class);
     }
 
     /**
      * The images associated with the event.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function images()
     {
-        return $this->hasMany(\App\Models\EventImage::class);
+        return $this->hasMany(EventImage::class);
     }
 
     /**
@@ -94,57 +93,57 @@ class Event extends MyBaseModel
      */
     public function messages()
     {
-        return $this->hasMany(\App\Models\Message::class)->orderBy('created_at', 'DESC');
+        return $this->hasMany(Message::class)->orderBy('created_at', 'DESC');
     }
 
     /**
      * The tickets associated with the event.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function tickets()
     {
-        return $this->hasMany(\App\Models\Ticket::class);
+        return $this->hasMany(Ticket::class);
     }
 
     /**
      * The stats associated with the event.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function stats()
     {
-        return $this->hasMany(\App\Models\EventStats::class);
+        return $this->hasMany(EventStats::class);
     }
 
     /**
      * The affiliates associated with the event.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function affiliates()
     {
-        return $this->hasMany(\App\Models\Affiliate::class);
+        return $this->hasMany(Affiliate::class);
     }
 
     /**
      * The orders associated with the event.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function orders()
     {
-        return $this->hasMany(\App\Models\Order::class);
+        return $this->hasMany(Order::class);
     }
 
     /**
      * The access codes associated with the event.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function access_codes()
     {
-        return $this->hasMany(\App\Models\EventAccessCodes::class, 'event_id', 'id');
+        return $this->hasMany(EventAccessCodes::class, 'event_id', 'id');
     }
 
     /**
@@ -154,7 +153,7 @@ class Event extends MyBaseModel
      */
     public function account()
     {
-        return $this->belongsTo(\App\Models\Account::class);
+        return $this->belongsTo(Account::class);
     }
 
     /**
@@ -164,7 +163,7 @@ class Event extends MyBaseModel
      */
     public function currency()
     {
-        return $this->belongsTo(\App\Models\Currency::class);
+        return $this->belongsTo(Currency::class);
     }
 
     /**
@@ -174,7 +173,7 @@ class Event extends MyBaseModel
      */
     public function organiser()
     {
-        return $this->belongsTo(\App\Models\Organiser::class);
+        return $this->belongsTo(Organiser::class);
     }
 
     /**
@@ -288,14 +287,13 @@ class Event extends MyBaseModel
             'Order Ref',
             'Attendee Name',
             'Attendee Email',
-            'Attendee Ticket'
+            'Attendee Ticket',
         ], $this->questions->pluck('title')->toArray());
 
         $attendees = $this->attendees()->has('answers')->get();
 
         foreach ($attendees as $attendee) {
             $answers = [];
-
             foreach ($this->questions as $question) {
                 if (in_array($question->id, $attendee->answers->pluck('question_id')->toArray())) {
                     $answers[] = $attendee->answers->where('question_id', $question->id)->first()->answer_text;
@@ -308,7 +306,7 @@ class Event extends MyBaseModel
                 $attendee->order->order_reference,
                 $attendee->full_name,
                 $attendee->email,
-                $attendee->ticket->title
+                $attendee->ticket->title,
             ], $answers);
         }
 
@@ -361,8 +359,10 @@ class Event extends MyBaseModel
      */
     public function getEventUrlAttribute()
     {
-        return route("showEventPage", ["event_id"=>$this->id, "event_slug"=>Str::slug($this->title)]);
-        //return URL::to('/') . '/e/' . $this->id . '/' . Str::slug($this->title);
+        return route("showEventPage", [
+            'event_id' => $this->id,
+            'event_slug' => Str::slug($this->title),
+        ]);
     }
 
     /**
@@ -385,6 +385,9 @@ class Event extends MyBaseModel
         return ['created_at', 'updated_at', 'start_date', 'end_date'];
     }
 
+    /**
+     * @return string
+     */
     public function getIcsForEvent()
     {
         $siteUrl = URL::to('/');
